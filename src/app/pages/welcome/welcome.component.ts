@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IDynamicTableModel } from 'src/app/shared/components/dynamic-table/dynamic-table.model';
 
 @Component({
   selector: 'app-welcome',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.less']
 })
 export class WelcomeComponent implements OnInit {
+  model: IDynamicTableModel;
 
   constructor() { }
 
