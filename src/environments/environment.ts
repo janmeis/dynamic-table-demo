@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyDP3YVotVksFJFb0tM4bH_NpZ7HRjeZuu0",
+    authDomain: "dynamic-table-demo-4b474.firebaseapp.com",
+    databaseURL: "https://dynamic-table-demo-4b474.firebaseio.com",
+    projectId: "dynamic-table-demo-4b474",
+    storageBucket: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    messagingSenderId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
 };
 
 /*

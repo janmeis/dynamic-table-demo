@@ -4,15 +4,26 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { IconsProviderModule } from '../icons-provider.module';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.component';
 
 
 @NgModule({
   declarations: [
     DynamicTableComponent,
+    LoginDialogComponent
+  ],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    IconsProviderModule,
+    NgZorroAntdModule,
+    ReactiveFormsModule,
   ],
   exports: [
     BrowserAnimationsModule,
@@ -24,7 +35,9 @@ import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.
     IconsProviderModule,
     NgZorroAntdModule,
     ReactiveFormsModule,
-    RouterModule,
+  ],
+  entryComponents: [
+    LoginDialogComponent
   ],
 })
 export class SharedModule { }
