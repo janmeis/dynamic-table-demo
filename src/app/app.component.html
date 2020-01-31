@@ -43,7 +43,14 @@
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
         </span>
-        <span style="float: right;padding-right: calc(2*24px);">XXX</span>
+        <span style="float: right;padding-right: calc(2*24px);">
+          <ng-container *ngIf="(userData | async) as data;else logIn">
+            <button nz-button nzSize="small" nzType="link" (click)="signOut()">Sign out {{ data.email }}</button>
+          </ng-container>
+          <ng-template #logIn>
+            <button nz-button nzSize="small" nzType="link" (click)="showModal()">Log in</button>
+          </ng-template>
+        </span>
       </div>
     </nz-header>
     <nz-content>
@@ -53,17 +60,3 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-
-<!-- <h1 *ngIf="authenticationService.userData | async">Hello {{ (authenticationService.userData | async)?.email }}</h1>
-
-<div *ngIf="!(authenticationService.userData | async)">
-    <input type="text" [(ngModel)]="email" placeholder="email">
-    <input type="password" [(ngModel)]="password" placeholder="password">
-
-    <button (click)="signUp()">Sign Up</button>
-
-    <button (click)="signIn()">Login</button>
-</div>
-
-<button (click)="signOut()" *ngIf="authenticationService.userData | async">Logout</button> -->
-

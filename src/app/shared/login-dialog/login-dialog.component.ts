@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd';
+
 
 @Component({
   selector: 'app-login-dialog',
@@ -7,22 +9,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login-dialog.component.less']
 })
 export class LoginDialogComponent implements OnInit {
+  @Input() username: string;
+  @Input() password: string;
   validateForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private modal: NzModalRef) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.required]],
       remember: [true]
     });
   }
 
-  submitForm(): void {
+  logIn(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
+    }
+
+    if (this.validateForm.valid) {
+      const result = {
+        username: this.validateForm.get('username').value,
+        password: this.validateForm.get('password').value
+      };
+      this.modal.close(result);
     }
   }
 }

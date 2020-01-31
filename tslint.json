@@ -21,6 +21,7 @@
       "app",
       "kebab-case"
     ],
+    "curly": false,
     "forin": false,
     "import-blacklist": [
       true,

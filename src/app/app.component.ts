@@ -1,5 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from './shared/authentication.service';
 import { LoginDialogComponent } from './shared/login-dialog/login-dialog.component';
 
@@ -8,29 +9,20 @@ import { LoginDialogComponent } from './shared/login-dialog/login-dialog.compone
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   isCollapsed = false;
-  email: string;
-  password: string;
+  userData: Observable<firebase.User>;
 
   constructor(
     public authenticationService: AuthenticationService,
     private modalService: NzModalService
   ) { }
+  ngOnInit(): void {
+    this.userData = this.authenticationService.userData;
+  }
 
   ngAfterViewInit(): void {
     this.showModal();
-  }
-
-  signUp() {
-    this.authenticationService.SignUp(this.email, this.password);
-    this.email = '';
-    this.password = '';
-  }
-
-  signIn() {
-    this.email = '';
-    this.password = '';
   }
 
   signOut() {
@@ -38,9 +30,14 @@ export class AppComponent implements AfterViewInit {
   }
 
   private showModal() {
-    this.modalService.create({
-      nzTitle: 'Modal Title',
-      nzContent: LoginDialogComponent
+    const modal = this.modalService.create({
+      nzContent: LoginDialogComponent,
+      nzTitle: 'User log in'
+    });
+
+    modal.afterClose.subscribe((result: { username: string, password: string }) => {
+      if (result && result.username && result.password)
+        this.authenticationService.SignIn(result.username, result.password);
     });
   }
 }
