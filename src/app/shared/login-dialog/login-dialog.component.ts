@@ -39,4 +39,9 @@ export class LoginDialogComponent implements OnInit {
       this.modal.close(result);
     }
   }
+
+  fillLogin() {
+    this.validateForm.get('username').setValue('janmeis2@gmail.com');
+    this.validateForm.get('password').setValue('prdel123');
+  }
 }

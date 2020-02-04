@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from 'firebase';
 import { NzModalService } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from './shared/authentication.service';
@@ -9,20 +10,21 @@ import { LoginDialogComponent } from './shared/login-dialog/login-dialog.compone
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   isCollapsed = false;
-  userData: Observable<firebase.User>;
+  userData: Observable<User>;
 
   constructor(
     public authenticationService: AuthenticationService,
     private modalService: NzModalService
   ) { }
+
   ngOnInit(): void {
     this.userData = this.authenticationService.userData;
-  }
-
-  ngAfterViewInit(): void {
-    this.showModal();
+    this.authenticationService.userData.subscribe(data => {
+      if (!data)
+        this.showModal();
+    });
   }
 
   signOut() {

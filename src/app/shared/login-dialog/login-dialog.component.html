@@ -1,4 +1,4 @@
-<form nz-form [formGroup]="validateForm" class="login-form">
+<form nz-form [formGroup]="validateForm" class="login-form" (keydown.enter)="logIn()">
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your username!">
       <nz-input-group nzPrefixIcon="user">
@@ -11,6 +11,11 @@
       <nz-input-group nzPrefixIcon="lock">
         <input type="password" nz-input formControlName="password" placeholder="Password" />
       </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button (click)="fillLogin()">Fill in</button>
     </nz-form-control>
   </nz-form-item>
 </form>
